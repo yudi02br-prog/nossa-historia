@@ -209,3 +209,54 @@ button {
   opacity: 0.85;
   letter-spacing: 0.3px;
 }
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  body.dark {
+    align-items: flex-start;
+    padding: 20px 0;
+  }
+
+  .container {
+    padding: 20px;
+    max-width: 92%;
+  }
+
+  .container-wide {
+    max-width: 94%;
+  }
+
+  /* frase pode quebrar linha no mobile */
+  .frase-principal {
+    white-space: normal;
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  /* carrossel mais compacto */
+  .carousel {
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  /* imagem levemente maior no mobile */
+  .image-wrapper {
+    height: 360px;
+  }
+
+  /* setas mais fáceis de tocar */
+  #prev,
+  #next {
+    font-size: 2.2rem;
+    height: 360px;
+  }
+
+  /* textos um pouco menores */
+  .frase-auto {
+    font-size: 0.95rem;
+  }
+
+  .tempo {
+    font-size: 0.9rem;
+  }
+}
