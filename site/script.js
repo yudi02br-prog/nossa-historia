@@ -1,4 +1,6 @@
-// ===== SITE 1 =====
+// =====================
+// SITE 1 — CRIAÇÃO
+// =====================
 const btnConcluir = document.getElementById("concluir");
 
 if (btnConcluir) {
@@ -7,7 +9,10 @@ if (btnConcluir) {
     const dataInicio = document.getElementById("dataInicio").value;
     const imagens = document.getElementById("imagens").files;
 
-    if (!frase || !dataInicio || imagens.length === 0) return;
+    if (!frase || !dataInicio || imagens.length === 0) {
+      alert("Preencha tudo antes de continuar ❤️");
+      return;
+    }
 
     const fotos = [];
 
@@ -28,7 +33,9 @@ if (btnConcluir) {
   });
 }
 
-// ===== SITE 2 =====
+// =====================
+// SITE 2 — RESULTADO
+// =====================
 const fraseFinal = document.getElementById("fraseFinal");
 
 if (fraseFinal) {
@@ -38,13 +45,11 @@ if (fraseFinal) {
 
   fraseFinal.innerText = frase;
 
-  // tempo namoro
   const hoje = new Date();
   const dias = Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
   document.getElementById("tempo").innerText =
     `Estamos juntos há ${dias} dias ❤️`;
 
-  // carrossel
   let index = 0;
   const frasesAuto = [
     "Mais um momento inesquecível ❤️",
@@ -73,3 +78,4 @@ if (fraseFinal) {
 
   render();
 }
+    
