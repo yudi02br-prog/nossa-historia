@@ -12,21 +12,25 @@ body.dark {
   align-items: center;
 }
 
-/* CONTAINER PADRÃO */
+/* CONTAINER */
 .container {
   background: rgba(0, 0, 0, 0.35);
   padding: 30px;
   border-radius: 16px;
   width: 100%;
-  max-width: 420px;
+  max-width: 460px; /* + espaço */
   text-align: center;
   box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
 }
 
-h1 {
+/* FRASE PRINCIPAL */
+.frase-principal {
+  font-size: 1.5rem;
   margin-bottom: 15px;
+  white-space: nowrap;
 }
 
+/* INPUTS */
 label {
   display: block;
   text-align: left;
@@ -67,42 +71,45 @@ button:hover {
   margin-top: 20px;
 }
 
+.slide {
+  width: 260px;
+  overflow: hidden;
+}
+
 .slide img {
-  width: 240px;
+  width: 100%;
   height: 300px;
   object-fit: cover;
   border-radius: 12px;
+  transition: transform 0.6s ease-in-out;
 }
 
-.slide p {
-  margin-top: 10px;
+.frase-auto {
+  margin-top: 12px;
   font-style: italic;
+}
+
+.tempo {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
 
 #prev, #next {
   background: none;
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: white;
-  width: auto;
+  cursor: pointer;
 }
 
-/* CRÉDITOS */
+/* CRÉDITOS TELA 1 */
 .creditos {
-  margin-top: 30px;
+  margin-top: 25px;
   font-size: 0.85rem;
   opacity: 0.8;
 }
 
-.creditos a {
-  color: #c77dff;
-  text-decoration: none;
-}
-
-.creditos a:hover {
-  text-decoration: underline;
-}
-
-/* ANIMAÇÃO DE ABERTURA */
+/* ABERTURA */
 #abertura {
   position: fixed;
   inset: 0;
@@ -126,3 +133,4 @@ button:hover {
     visibility: hidden;
   }
 }
+/* RESPONSIVO */
