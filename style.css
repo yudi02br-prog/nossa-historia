@@ -12,6 +12,7 @@ body.dark {
   align-items: center;
 }
 
+/* CONTAINER PADRÃO */
 .container {
   background: rgba(0, 0, 0, 0.35);
   padding: 30px;
@@ -58,6 +59,7 @@ button:hover {
   background: #7a1fd1;
 }
 
+/* CARROSSEL */
 .carousel {
   display: flex;
   align-items: center;
@@ -84,6 +86,7 @@ button:hover {
   width: auto;
 }
 
+/* CRÉDITOS */
 .creditos {
   margin-top: 30px;
   font-size: 0.85rem;
@@ -97,4 +100,29 @@ button:hover {
 
 .creditos a:hover {
   text-decoration: underline;
+}
+
+/* ANIMAÇÃO DE ABERTURA */
+#abertura {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #2b1055, #1a062f);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 2s;
+}
+
+#abertura h1 {
+  font-size: 4rem;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
