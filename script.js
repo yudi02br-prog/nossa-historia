@@ -90,10 +90,38 @@ if (fraseFinal) {
 
   fraseFinal.innerText = frase;
 
-  const hoje = new Date();
-  const dias = Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
-  document.getElementById("tempo").innerText =
-    `Estamos juntos há ${dias} dias ❤️`;
+  function atualizarTempo() {
+    const agora = new Date();
+    const diff = agora - dataInicio;
+
+    const totalSegundos = Math.floor(diff / 1000);
+
+    const segundos = totalSegundos % 60;
+    const totalMinutos = Math.floor(totalSegundos / 60);
+
+    const minutos = totalMinutos % 60;
+    const totalHoras = Math.floor(totalMinutos / 60);
+
+    const horas = totalHoras % 24;
+    const totalDias = Math.floor(totalHoras / 24);
+
+    const anos = Math.floor(totalDias / 365);
+    const dias = totalDias % 365;
+
+    document.getElementById("tempo").innerText =
+      `Estamos juntos há ${anos} ano${anos !== 1 ? "s" : ""}, ` +
+      `${dias} dia${dias !== 1 ? "s" : ""}, ` +
+      `${String(horas).padStart(2, "0")}h ` +
+      `${String(minutos).padStart(2, "0")}m ` +
+      `${String(segundos).padStart(2, "0")}s ❤️`;
+  }
+
+  // atualiza imediatamente
+  atualizarTempo();
+
+  // atualiza a cada segundo
+  setInterval(atualizarTempo, 1000);
+
 
   // ------------------
   // CARROSSEL
@@ -114,15 +142,34 @@ if (fraseFinal) {
     fraseImagem.innerText = frasesAuto[index % frasesAuto.length];
   }
 
+  let intervaloCarousel;
+
+  function iniciarCarouselAutomatico() {
+    intervaloCarousel = setInterval(() => {
+      index = (index + 1) % fotos.length;
+      render();
+    }, 4000); // 4 segundos
+  }
+
+  function resetarCarousel() {
+    clearInterval(intervaloCarousel);
+    iniciarCarouselAutomatico();
+  }
+
   document.getElementById("prev").onclick = () => {
     index = (index - 1 + fotos.length) % fotos.length;
     render();
+    resetarCarousel();
   };
 
   document.getElementById("next").onclick = () => {
     index = (index + 1) % fotos.length;
     render();
+    resetarCarousel();
   };
 
+  // inicia
   render();
+  iniciarCarouselAutomatico();
+
 }
