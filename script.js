@@ -44,11 +44,12 @@ if (btnConcluir) {
 }
 
 // ======================================================
-// SITE 2 — RESULTADO FINAL
+// SITE 2 — RESULTADO FINAL (DOM READY)
 // ======================================================
-const fraseFinal = document.getElementById("fraseFinal");
+document.addEventListener("DOMContentLoaded", () => {
+  const fraseFinal = document.getElementById("fraseFinal");
+  if (!fraseFinal) return;
 
-if (fraseFinal) {
   const abertura   = document.getElementById("abertura");
   const telaSenha  = document.getElementById("telaSenha");
   const conteudo   = document.getElementById("conteudo");
@@ -62,7 +63,7 @@ if (fraseFinal) {
     telaSenha.style.display = "none";
     conteudo.style.display = "none";
 
-    // mostra a tela de senha após 1 segundo
+    // mostra a tela de senha após 1s
     setTimeout(() => {
       telaSenha.style.display = "block";
     }, 1000);
@@ -103,35 +104,25 @@ if (fraseFinal) {
   function atualizarTempo() {
     const diff = new Date() - dataInicio;
 
-    const totalSegundos = Math.floor(diff / 1000);
-    const segundos = totalSegundos % 60;
+    const s = Math.floor(diff / 1000);
+    const m = Math.floor(s / 60);
+    const h = Math.floor(m / 60);
+    const d = Math.floor(h / 24);
 
-    const totalMinutos = Math.floor(totalSegundos / 60);
-    const minutos = totalMinutos % 60;
-
-    const totalHoras = Math.floor(totalMinutos / 60);
-    const horas = totalHoras % 24;
-
-    const totalDias = Math.floor(totalHoras / 24);
-    const anos = Math.floor(totalDias / 365);
-    const restoAno = totalDias % 365;
+    const anos = Math.floor(d / 365);
+    const restoAno = d % 365;
     const meses = Math.floor(restoAno / 30);
     const dias = restoAno % 30;
 
     let texto = "Estamos juntos há ";
 
-    if (anos > 0) {
-      texto += `${anos} ano${anos > 1 ? "s" : ""}, `;
-    }
-
-    if (meses > 0) {
-      texto += `${meses} mes${meses > 1 ? "es" : ""}, `;
-    }
+    if (anos > 0) texto += `${anos} ano${anos > 1 ? "s" : ""}, `;
+    if (meses > 0) texto += `${meses} mes${meses > 1 ? "es" : ""}, `;
 
     texto += `${dias} dias, `;
-    texto += `${String(horas).padStart(2, "0")}h `;
-    texto += `${String(minutos).padStart(2, "0")}m `;
-    texto += `${String(segundos).padStart(2, "0")}s ❤️`;
+    texto += `${String(h % 24).padStart(2, "0")}h `;
+    texto += `${String(m % 60).padStart(2, "0")}m `;
+    texto += `${String(s % 60).padStart(2, "0")}s ❤️`;
 
     document.getElementById("tempo").innerText = texto;
   }
@@ -180,4 +171,4 @@ if (fraseFinal) {
 
   render();
   setInterval(avancar, 4000);
-}
+});
