@@ -5,30 +5,37 @@
   <title>Nossa História ❤️</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark">
+<body class="dark fade-in">
 
-  <!-- ANIMAÇÃO DE ABERTURA -->
-  <div id="abertura">
-    <h1>🎁</h1>
-    <p>Um presente feito com amor</p>
+  <!-- ABERTURA -->
+<div id="abertura" class="abertura">
+  <div class="abertura-conteudo">
+    <span class="abertura-emoji">🎁</span>
+    <p class="abertura-texto">Um presente preparado com carinho</p>
   </div>
+</div>
 
-  <!-- TELA DE SENHA -->
-  <div id="telaSenha" class="container">
-    <h1>🔐 Acesso protegido</h1>
-    <input type="password" id="senhaInput" placeholder="Digite a senha">
-    <button id="btnSenha">Entrar</button>
-  </div>
 
-  <!-- CONTEÚDO PRINCIPAL -->
-  <div id="conteudo" class="container" style="display:none;">
+  <!-- SENHA -->
+<div id="telaSenha" class="container slide-up" style="display:none;">
+  <h1>🔐 Acesso protegido</h1>
+  <input type="password" id="senhaInput" placeholder="Digite a senha">
+  <button id="btnSenha" class="btn-animado">Entrar</button>
+</div>
+
+
+  <!-- CONTEÚDO FINAL (COMEÇA ESCONDIDO) -->
+  <div id="conteudo" class="container container-wide slide-up" style="display:none;">
     <h1 id="fraseFinal" class="frase-principal"></h1>
 
     <div class="carousel">
       <button id="prev">‹</button>
 
       <div class="slide">
-        <img id="imgAtual">
+        <div class="image-wrapper">
+          <img id="imgAtual">
+        </div>
+
         <p id="fraseImagem" class="frase-auto"></p>
         <p id="tempo" class="tempo"></p>
       </div>

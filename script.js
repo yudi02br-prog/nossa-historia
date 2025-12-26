@@ -6,7 +6,7 @@ const casalId = params.get("casal") || "default";
 const storageKey = key => `${casalId}_${key}`;
 
 // ======================================================
-// SITE 1 — CRIAÇÃO
+// SITE 1 — CRIAÇÃO DO PRESENTE
 // ======================================================
 const btnConcluir = document.getElementById("concluir");
 
@@ -34,6 +34,7 @@ if (btnConcluir) {
           localStorage.setItem(storageKey("dataInicio"), dataInicio);
           localStorage.setItem(storageKey("senha"), senha);
           localStorage.setItem(storageKey("fotos"), JSON.stringify(fotos));
+
           window.location.href = `result.html?casal=${casalId}`;
         }
       };
@@ -43,19 +44,43 @@ if (btnConcluir) {
 }
 
 // ======================================================
-// SITE 2 — RESULTADO
+// SITE 2 — RESULTADO FINAL
 // ======================================================
 const fraseFinal = document.getElementById("fraseFinal");
 
 if (fraseFinal) {
-  // SENHA
-  const telaSenha = document.getElementById("telaSenha");
-  const conteudo = document.getElementById("conteudo");
-  const btnSenha = document.getElementById("btnSenha");
+  const abertura   = document.getElementById("abertura");
+  const telaSenha  = document.getElementById("telaSenha");
+  const conteudo   = document.getElementById("conteudo");
+  const btnSenha   = document.getElementById("btnSenha");
   const senhaSalva = localStorage.getItem(storageKey("senha"));
 
+  // ======================================================
+  // ABERTURA + DELAY DA TELA DE SENHA
+  // ======================================================
+  if (abertura && telaSenha) {
+    telaSenha.style.display = "none";
+    conteudo.style.display = "none";
+
+    // mostra a tela de senha após 1 segundo
+    setTimeout(() => {
+      telaSenha.style.display = "block";
+    }, 1000);
+
+    // remove a abertura suavemente
+    setTimeout(() => {
+      abertura.style.opacity = "0";
+      setTimeout(() => abertura.remove(), 1500);
+    }, 2500);
+  }
+
+  // ======================================================
+  // VALIDAÇÃO DE SENHA
+  // ======================================================
   btnSenha.onclick = () => {
-    if (document.getElementById("senhaInput").value === senhaSalva) {
+    const digitada = document.getElementById("senhaInput").value;
+
+    if (digitada === senhaSalva) {
       telaSenha.style.display = "none";
       conteudo.style.display = "block";
     } else {
@@ -63,34 +88,62 @@ if (fraseFinal) {
     }
   };
 
-  // DADOS
+  // ======================================================
+  // DADOS DO CASAL
+  // ======================================================
   const frase = localStorage.getItem(storageKey("frase"));
   const dataInicio = new Date(localStorage.getItem(storageKey("dataInicio")));
   const fotos = JSON.parse(localStorage.getItem(storageKey("fotos"))) || [];
 
   fraseFinal.innerText = frase;
 
-  // TEMPO EM TEMPO REAL
+  // ======================================================
+  // CONTADOR DE TEMPO (INTELIGENTE)
+  // ======================================================
   function atualizarTempo() {
     const diff = new Date() - dataInicio;
-    const s = Math.floor(diff / 1000);
-    const m = Math.floor(s / 60);
-    const h = Math.floor(m / 60);
-    const d = Math.floor(h / 24);
-    const a = Math.floor(d / 365);
 
-    document.getElementById("tempo").innerText =
-      `Estamos juntos há ${a} anos, ${d % 365} dias, ` +
-      `${String(h % 24).padStart(2,"0")}h ` +
-      `${String(m % 60).padStart(2,"0")}m ` +
-      `${String(s % 60).padStart(2,"0")}s ❤️`;
+    const totalSegundos = Math.floor(diff / 1000);
+    const segundos = totalSegundos % 60;
+
+    const totalMinutos = Math.floor(totalSegundos / 60);
+    const minutos = totalMinutos % 60;
+
+    const totalHoras = Math.floor(totalMinutos / 60);
+    const horas = totalHoras % 24;
+
+    const totalDias = Math.floor(totalHoras / 24);
+    const anos = Math.floor(totalDias / 365);
+    const restoAno = totalDias % 365;
+    const meses = Math.floor(restoAno / 30);
+    const dias = restoAno % 30;
+
+    let texto = "Estamos juntos há ";
+
+    if (anos > 0) {
+      texto += `${anos} ano${anos > 1 ? "s" : ""}, `;
+    }
+
+    if (meses > 0) {
+      texto += `${meses} mes${meses > 1 ? "es" : ""}, `;
+    }
+
+    texto += `${dias} dias, `;
+    texto += `${String(horas).padStart(2, "0")}h `;
+    texto += `${String(minutos).padStart(2, "0")}m `;
+    texto += `${String(segundos).padStart(2, "0")}s ❤️`;
+
+    document.getElementById("tempo").innerText = texto;
   }
 
   atualizarTempo();
   setInterval(atualizarTempo, 1000);
 
-  // CARROSSEL SUAVE
+  // ======================================================
+  // CARROSSEL (AUTO + MANUAL) COM ZOOM + KEN BURNS
+  // ======================================================
   let index = 0;
+
   const frasesAuto = [
     "Mais um momento inesquecível ❤️",
     "Um capítulo da nossa história 💜",
@@ -102,12 +155,15 @@ if (fraseFinal) {
   const fraseImagem = document.getElementById("fraseImagem");
 
   function render() {
-    imgAtual.style.transform = "translateX(100%)";
+    imgAtual.classList.remove("zoom", "kenburns");
+
     setTimeout(() => {
       imgAtual.src = fotos[index];
       fraseImagem.innerText = frasesAuto[index % frasesAuto.length];
-      imgAtual.style.transform = "translateX(0)";
-    }, 300);
+
+      imgAtual.classList.add("zoom");
+      imgAtual.classList.add("kenburns");
+    }, 120);
   }
 
   function avancar() {

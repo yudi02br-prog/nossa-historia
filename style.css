@@ -3,6 +3,7 @@
   font-family: Arial, sans-serif;
 }
 
+/* ================= BODY ================= */
 body.dark {
   background: linear-gradient(135deg, #2b1055, #1a062f);
   color: #fff;
@@ -12,7 +13,7 @@ body.dark {
   align-items: center;
 }
 
-/* ================= ANIMAÇÕES ================= */
+/* ================= ANIMAÇÕES BASE ================= */
 .fade-in {
   animation: fadeIn 0.8s ease forwards;
 }
@@ -42,7 +43,6 @@ body.dark {
   box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
 }
 
-/* container da tela 2 — NÃO ALTERADO */
 .container-wide {
   max-width: 760px;
 }
@@ -52,6 +52,7 @@ body.dark {
   font-size: 1.65rem;
   margin-bottom: 18px;
   white-space: nowrap;
+  text-align: center;
 }
 
 /* ================= INPUTS ================= */
@@ -84,15 +85,6 @@ button {
   cursor: pointer;
 }
 
-.btn-animado {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn-animado:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.6);
-}
-
 /* ================= CARROSSEL ================= */
 .carousel {
   display: flex;
@@ -102,20 +94,19 @@ button {
   margin-top: 16px;
 }
 
-/* BLOCO CENTRAL — NÃO ALTERADO */
 .slide {
   width: 100%;
   max-width: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 /* ================= IMAGEM ================= */
-/* FUNDO IGUAL, IMAGEM VISUALMENTE MAIOR */
 .image-wrapper {
   width: 100%;
-  height: 330px; /* mantém a área */
+  height: 330px;
   overflow: hidden;
   border-radius: 16px;
   margin-bottom: 12px;
@@ -128,9 +119,28 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.08); /* ⬅ AUMENTO REAL DA IMAGEM */
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
+  transform: scale(1.08);
+  transition: opacity 0.6s ease, transform 0.8s ease;
+}
+
+/* zoom na troca */
+.image-wrapper img.zoom {
+  transform: scale(1.12);
+}
+
+/* ================= KEN BURNS ================= */
+.image-wrapper img.kenburns {
+  animation: kenBurns 8s ease-in-out forwards;
+}
+
+@keyframes kenBurns {
+  from {
+    transform: scale(1.12) translate(0, 0);
+  }
+  to {
+    transform: scale(1.18) translate(-2%, -2%);
+  }
 }
 
 /* ================= TEXTOS ================= */
@@ -156,7 +166,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 330px; /* igual à área da imagem */
+  height: 330px;
   background: none;
   font-size: 2.6rem;
   color: white;
@@ -169,35 +179,33 @@ button {
   transform: scale(1.2);
 }
 
-/* ================= CRÉDITOS ================= */
-.creditos {
-  margin-top: 22px;
-  font-size: 0.85rem;
-  opacity: 0.8;
-}
-
-.creditos a {
-  color: #c77dff;
-  text-decoration: none;
-}
-
-/* ================= ABERTURA ================= */
-#abertura {
+/* ================= ABERTURA (VISUAL PREMIUM) ================= */
+.abertura {
   position: fixed;
   inset: 0;
   background: linear-gradient(135deg, #2b1055, #1a062f);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  animation: fadeOut 2s ease forwards;
-  animation-delay: 2s;
+  transition: opacity 1.5s ease;
 }
 
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
+.abertura-conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.abertura-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.abertura-texto {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  letter-spacing: 0.3px;
 }
